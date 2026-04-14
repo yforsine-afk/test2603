@@ -2,14 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>OpenShift Deployment</title>
+  <title>Welcome to OpenShift</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     body {
       margin: 0;
       font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(135deg, #2193b0, #6dd5ed);
+      background: linear-gradient(135deg, #c31432, #240b36);
       color: #ffffff;
       min-height: 100vh;
       display: flex;
@@ -18,66 +18,61 @@
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
       padding: 40px;
-      max-width: 520px;
+      max-width: 480px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     }
 
     h1 {
-      font-size: 2.3em;
-      margin-bottom: 12px;
+      font-size: 2.2em;
+      margin-bottom: 10px;
     }
 
     p {
       font-size: 1.1em;
-      line-height: 1.7;
-      opacity: 0.95;
+      line-height: 1.6;
+      opacity: 0.9;
     }
 
     .badge {
       display: inline-block;
-      margin-top: 22px;
-      padding: 10px 22px;
-      border-radius: 30px;
-      background-color: #0d6efd;
+      margin-top: 20px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background-color: #ee0000;
       font-weight: bold;
-      font-size: 1em;
     }
 
     .footer {
-      margin-top: 32px;
-      font-size: 0.95em;
-      opacity: 0.85;
+      margin-top: 30px;
+      font-size: 0.9em;
+      opacity: 0.8;
     }
 
     .footer span {
-      color: #e3f2fd;
-      font-weight: 600;
+      color: #ffcccc;
     }
   </style>
 </head>
 
 <body>
   <div class="card">
-    <h1>🔵 OpenShift Deployment</h1>
-
+    <h1>🚀 OpenShift Deployment</h1>
     <p>
-      This application is successfully deployed on
-      <strong>Red Hat OpenShift</strong><br />
-      using a container image from
-      <strong>Red Hat Quay</strong>
+      This application is successfully deployed
+      on <strong>Red Hat OpenShift</strong><br />
+      using Container Image from <strong>Red Hat Quay</strong>
     </p>
 
-    <div class="badge">CI / CD Blue Test</div>
+    <div class="badge">CI / CD Ready</div>
 
     <div class="footer">
-      Managed by <span>GitHub Actions</span> &
-      <span>ImageChangeTrigger</span><br />
+      Managed by <span>GitHub Actions</span> & <span>Argo CD</span><br />
       © 2026 Demo Application
     </div>
   </div>
