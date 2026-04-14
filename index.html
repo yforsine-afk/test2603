@@ -1,15 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website</title>
+  <meta charset="UTF-8" />
+  <title>Welcome to OpenShift</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(135deg, #c31432, #240b36);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 16px;
+      padding: 40px;
+      max-width: 480px;
+      width: 90%;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1em;
+      line-height: 1.6;
+      opacity: 0.9;
+    }
+
+    .badge {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      background-color: #ee0000;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+
+    .footer span {
+      color: #ffcccc;
+    }
+  </style>
 </head>
+
 <body>
-    <h1>Hello Sine</h1>
-    <h2>Hello world Sine</h2>
-    <h1>Hello</h1>
-    <h2>Hello world</h2>
-    
+  <div class="card">
+    <h1>🚀 OpenShift Deployment</h1>
+    <p>
+      This application is successfully deployed
+      on <strong>Red Hat OpenShift</strong><br />
+      using Container Image from <strong>Red Hat Quay</strong>
+    </p>
+
+    <div class="badge">CI / CD Ready</div>
+
+    <div class="footer">
+      Managed by <span>GitHub Actions</span> & <span>Argo CD</span><br />
+      © 2026 Demo Application
+    </div>
+  </div>
 </body>
 </html>
