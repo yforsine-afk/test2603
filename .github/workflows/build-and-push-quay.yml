@@ -1,4 +1,4 @@
-name: Build and Push Image to Red Hat Quay
+name: Build and Push Image to Red Hat Quay2
 
 on:
   push:
@@ -20,9 +20,17 @@ jobs:
 
       - name: Build container image
         run: |
-          docker build -t quay.io/phatthananvst01/quaytest2603:latest .
+          docker build \
+            -t quay.io/phatthananvst01/quaytest2603:latest \
+            -t quay.io/phatthananvst01/quaytest2603:dev \ .
+
 
       - name: Push image to Quay
         run: |
           docker push quay.io/phatthananvst01/quaytest2603:latest
+          docker push quay.io/phatthananvst01/quaytest2603:dev
+          
+          
+
+
 
