@@ -22,7 +22,8 @@ jobs:
         run: |
           docker build \
             -t quay.io/phatthananvst01/quaytest2603:latest \
-            -t quay.io/phatthananvst01/quaytest2603:dev \ .
+            -t quay.io/phatthananvst01/quaytest2603:dev \ 
+            .
 
 
       - name: Push image to Quay
