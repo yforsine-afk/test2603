@@ -19,7 +19,10 @@ jobs:
             -u "${{ secrets.QUAY_USER }}" --password-stdin
       - name: Build container image
         run: |
-          docker build -t quay.io/phatthananvst01/quaytest2603:latest .
+          docker build \
+            -t quay.io/phatthananvst01/quaytest2603:latest \
+            -t quay.io/phatthananvst01/quaytest2603:dev .
       - name: Push image to Quay
         run: |
           docker push quay.io/phatthananvst01/quaytest2603:latest
+          docker push quay.io/phatthananvst01/quaytest2603:dev
