@@ -1,0 +1,28 @@
+name: Build and Push Image to Red Hat Quay2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Login to Red Hat Quay
+        run: |
+          echo "${{ secrets.QUAY_PASSWORD }}" | docker login quay.io \
+            -u "${{ secrets.QUAY_USER }}" --password-stdin
+      - name: Build container image
+        run: |
+          docker build \
+            -t quay.io/phatthananvst01/quaytest2603:latest \
+            -t quay.io/phatthananvst01/quaytest2603:dev .
+      - name: Push image to Quay
+        run: |
+          docker push quay.io/phatthananvst01/quaytest2603:latest
+          docker push quay.io/phatthananvst01/quaytest2603:dev
