@@ -4,6 +4,8 @@ metadata:
   name: test2603
   labels:
     app: test2603
+  annotations:
+    app.version: "1.0.0"        # ใส่ตรงนี้
 spec:
   replicas: 1
   selector:
