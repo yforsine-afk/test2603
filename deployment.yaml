@@ -16,6 +16,7 @@ spec:
         app: test2603
       annotations:
         rollout.version: "1.0.2"   # จุดนี้สำคัญที่สุด
+        rollout.fix: "force-new-pull-20260415"
     spec:
       containers:
       - name: web
