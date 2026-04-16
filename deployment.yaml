@@ -20,6 +20,6 @@ spec:
     spec:
       containers:
       - name: web
-        image: quay.io/phatthananvst01/quaytest2603:1.0.9
+        image: quay.io/phatthananvst01/quaytest2603:latest
         ports:
         - containerPort: 80
