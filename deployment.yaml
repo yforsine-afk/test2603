@@ -15,7 +15,11 @@ spec:
       labels:
         app: test2603
       annotations:
+<<<<<<< Updated upstream
         rollout.version: "1.0.4"   # จุดนี้สำคัญที่สุด
+=======
+        rollout.version: "1.0.6"   # จุดนี้สำคัญที่สุด
+>>>>>>> Stashed changes
         rollout.fix: "force-new-pull-20260415"
     spec:
       containers:
