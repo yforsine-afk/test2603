@@ -1,28 +1,52 @@
-name: Build and Push Image to Red Hat Quay2
+name: Build and Update GitOps
 
 on:
   push:
-    branches:
-      - main
+    branches: [ "main" ]
+
+env:
+  IMAGE_NAME: quay.io/phatthananvst01/quaytest2603
+  GITOPS_REPO: phatthanan/gitops-repo
+  DEPLOYMENT_FILE: deployment.yaml
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
+    - name: Checkout app repo
+      uses: actions/checkout@v4
 
-      - name: Login to Red Hat Quay
-        run: |
-          echo "${{ secrets.QUAY_PASSWORD }}" | docker login quay.io \
-            -u "${{ secrets.QUAY_USER }}" --password-stdin
-      - name: Build container image
-        run: |
-          docker build \
-            -t quay.io/phatthananvst01/quaytest2603:latest \
-            -t quay.io/phatthananvst01/quaytest2603:dev .
-      - name: Push image to Quay
-        run: |
-          docker push quay.io/phatthananvst01/quaytest2603:latest
-          docker push quay.io/phatthananvst01/quaytest2603:dev
+    - name: Set image tag
+      run: |
+        echo "IMAGE_TAG=v$(date +%Y.%m.%d)-${GITHUB_SHA::7}" >> $GITHUB_ENV
+
+    - name: Login to Quay
+      run: docker login quay.io -u ${{ secrets.QUAY_USER }} -p ${{ secrets.QUAY_TOKEN }}
+
+    - name: Build and push image
+      run: |
+        docker build -t $IMAGE_NAME:${IMAGE_TAG} .
+        docker push $IMAGE_NAME:${IMAGE_TAG}
+
+    # 👇 STEP สำคัญ: แก้ GitOps repo
+    - name: Checkout GitOps repo
+      uses: actions/checkout@v4
+      with:
+        repository: ${{ env.GITOPS_REPO }}
+        token: ${{ secrets.GITOPS_TOKEN }}
+        path: gitops
+
+    - name: Update image tag
+      run: |
+        sed -i "s|image: .*|image: $IMAGE_NAME:${IMAGE_TAG}|g" gitops/${DEPLOYMENT_FILE}
+
+    - name: Commit and push GitOps change
+      run: |
+        cd gitops
+        git config user.name "github-actions"
+        git config user.email "actions@github.com"
+        git add .
+        git commit -m "deploy: update image to ${IMAGE_TAG}"
+        git push
+        
