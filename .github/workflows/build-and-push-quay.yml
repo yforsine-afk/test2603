@@ -9,7 +9,7 @@ env:
   IMAGE_REGISTRY: quay.io
   IMAGE_ORG: phatthananvst01
   IMAGE_NAME: quaytest2603
-  GITOPS_REPO: phatthanan/gitops-repo     # <-- แก้เป็น repo จริง
+  GITOPS_REPO: yforsine-afk/gitops-repo     # <-- แก้เป็น repo จริง
   GITOPS_PATH: .
   DEPLOYMENT_FILE: deployment.yaml
 
