@@ -9,7 +9,18 @@
     body {
       margin: 0;
       font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      background: linear-gradient(
+        135deg,
+        #ff0000,
+        #ff8800,
+        #ffff00,
+        #00ff00,
+        #00ffff,
+        #0000ff,
+        #8a2be2
+      );
+      background-size: 400% 400%;
+      animation: rainbow-bg 12s ease infinite;
       color: #ffffff;
       min-height: 100vh;
       display: flex;
@@ -17,20 +28,29 @@
       justify-content: center;
     }
 
+    @keyframes rainbow-bg {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .card {
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(10px);
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(12px);
       border-radius: 16px;
       padding: 40px;
       max-width: 480px;
       width: 90%;
       text-align: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.35);
     }
 
     h1 {
-      font-size: 2.2em;
-      margin-bottom: 10px;
+      font-size: 2.3em;
+      margin-bottom: 12px;
+      background: linear-gradient(90deg, #ff5555, #ffd700, #00ffcc, #5599ff, #cc66ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     p {
@@ -42,21 +62,24 @@
     .badge {
       display: inline-block;
       margin-top: 20px;
-      padding: 8px 16px;
+      padding: 8px 18px;
       border-radius: 20px;
-      background-color: #3498db;
-      color: #ffffff;
       font-weight: bold;
+      background: linear-gradient(90deg, #ff0000, #ff9900, #ffee00, #00ff66, #00ccff, #6633ff);
+      color: #000;
     }
 
     .footer {
       margin-top: 30px;
       font-size: 0.9em;
-      opacity: 0.85;
+      opacity: 0.9;
     }
 
     .footer span {
-      color: #cce6ff;
+      font-weight: bold;
+      background: linear-gradient(90deg, #ff6666, #ffff66, #66ffcc, #6699ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
   </style>
 </head>
@@ -68,14 +91,3 @@
       This application is successfully deployed
       on <strong>Red Hat OpenShift</strong><br />
       using Container Image from <strong>Red Hat Quay</strong>
-    </p>
-
-    <div class="badge">CI / CD Ready</div>
-
-    <div class="footer">
-      Managed by <span>GitHub Actions</span> &amp; <span>Argo CD</span><br />
-      © 2026 Demo Application
-    </div>
-  </div>
-</body>
-</html>
