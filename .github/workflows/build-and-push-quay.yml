@@ -1,12 +1,16 @@
-name: Build and Update GitOps
+name: Build Image and Update GitOps Repo
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 env:
-  IMAGE_NAME: quay.io/phatthananvst01/quaytest2603
-  GITOPS_REPO: phatthanan/gitops-repo
+  IMAGE_REGISTRY: quay.io
+  IMAGE_ORG: phatthananvst01
+  IMAGE_NAME: quaytest2603
+  GITOPS_REPO: phatthanan/gitops-repo     # <-- แก้เป็น repo จริง
+  GITOPS_PATH: .
   DEPLOYMENT_FILE: deployment.yaml
 
 jobs:
@@ -14,22 +18,30 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout app repo
+    # 1) checkout APP-REPO (source code)
+    - name: Checkout application source
       uses: actions/checkout@v4
 
+    # 2) สร้าง immutable image tag
     - name: Set image tag
       run: |
         echo "IMAGE_TAG=v$(date +%Y.%m.%d)-${GITHUB_SHA::7}" >> $GITHUB_ENV
 
+    # 3) Login Quay ด้วย Robot Account (วิธีที่ถูกต้อง)
     - name: Login to Quay
-      run: docker login quay.io -u ${{ secrets.QUAY_USER }} -p ${{ secrets.QUAY_TOKEN }}
+      run: |
+        echo "${{ secrets.QUAY_TOKEN }}" | docker login quay.io \
+          -u "${{ secrets.QUAY_USER }}" \
+          --password-stdin
 
+    # 4) Build & Push Image
     - name: Build and push image
       run: |
-        docker build -t $IMAGE_NAME:${IMAGE_TAG} .
-        docker push $IMAGE_NAME:${IMAGE_TAG}
+        IMAGE=${IMAGE_REGISTRY}/${IMAGE_ORG}/${IMAGE_NAME}:${IMAGE_TAG}
+        docker build -t $IMAGE .
+        docker push $IMAGE
 
-    # 👇 STEP สำคัญ: แก้ GitOps repo
+    # 5) checkout GITOPS-REPO
     - name: Checkout GitOps repo
       uses: actions/checkout@v4
       with:
@@ -37,16 +49,18 @@ jobs:
         token: ${{ secrets.GITOPS_TOKEN }}
         path: gitops
 
-    - name: Update image tag
+    # 6) update image tag ใน deployment.yaml
+    - name: Update image tag in GitOps repo
       run: |
-        sed -i "s|image: .*|image: $IMAGE_NAME:${IMAGE_TAG}|g" gitops/${DEPLOYMENT_FILE}
+        IMAGE=${IMAGE_REGISTRY}/${IMAGE_ORG}/${IMAGE_NAME}:${IMAGE_TAG}
+        sed -i "s|image: .*|image: ${IMAGE}|g" gitops/${DEPLOYMENT_FILE}
 
+    # 7) commit + push ไป GITOPS-REPO
     - name: Commit and push GitOps change
       run: |
         cd gitops
         git config user.name "github-actions"
         git config user.email "actions@github.com"
-        git add .
-        git commit -m "deploy: update image to ${IMAGE_TAG}"
+        git add ${DEPLOYMENT_FILE}
+        git commit -m "deploy(test2603): update image to ${IMAGE_TAG}"
         git push
-        
